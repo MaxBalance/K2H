@@ -1,0 +1,122 @@
+<ion-view view-title="饭店详情">
+    <ion-content  style="background-image: url(images/resback.png);" class="bg_size_cover" overflow-scroll="true">
+        <ion-slide-box  on-slide-changed="slideHasChanged($index)" class="height_100">
+            <ion-slide class="bg_img_inherit">
+                <div class="detail_head">
+                    <div ng-click="overallView()"><img class="width_6" ng-src="images/quanjing.png"/>&nbsp;{{restaurant_Detail.name}}</div>
+                    <div>酒店风格：{{restaurant_Detail.foodstyle}}</div>
+                    <div>酒店星级：{{restaurant_Detail.starlevel}}</div>
+                    <div>配送时间：{{restaurant_Detail.dist_time}}</div>
+                    <div>起送价格：{{restaurant_Detail.sendprice}}</div>
+                    <div>每客单价：{{restaurant_Detail.perprice}}</div>
+                    <div><i ng-if="restaurant_Detail.dz_flag == 0" class="ion-thumbsup" ng-click="addPraise()" ></i>
+                        <i ng-if="restaurant_Detail.dz_flag == 1" class="ion-thumbsup red" ng-click="addPraise()" ></i>
+                        （{{restaurant_Detail.dz_cnt}}）&nbsp;
+                        <i ng-if="restaurant_Detail.sc_flag == 0" class="ion-heart" ng-click="addCollect()"></i>
+                        <i ng-if="restaurant_Detail.sc_flag == 1" class="ion-heart red" ng-click="addCollect()"></i>
+                        （{{restaurant_Detail.sc_cnt}}）</div>
+                    <div><img class="width_6" ng-src="images/phone.png"/>&nbsp;{{restaurant_Detail.phone}}</div>
+                    <div><img class="width_6" ng-src="images/dingwei.png"/>&nbsp;{{restaurant_Detail.address}}</div>
+                </div>
+            </ion-slide>
+
+            <ion-slide ng-repeat="foods in foodList">
+                <div class="detail_pic2">
+                    <div ng-show="foods.sm[0].cd_flag == 0" class="ribbon ribbon-danger" ng-click="addMenu(foods.sm[0])">
+                        <div class="banner">
+                            <div class="text">￥{{foods.sm[0].price}}</div>
+                            <div class="text">加入菜单</div>
+                        </div>
+                    </div>
+                    <div ng-show="foods.sm[0].cd_flag == 1" class="ribbon ribbon2 ribbon-danger" ng-click="addMenued()">
+                        <div class="banner">
+                            <div class="text">￥{{foods.sm[0].price}}</div>
+                            <div class="text">已加入</div>
+                        </div>
+                    </div>
+                    <div class="height_100 width_100 border-720606" style="background-image: url({{foods.sm[0].file_path}});
+                        background-size: cover;background-position: center;"></div>
+                    <div ng-show="foods.sm[0].file_path" class="detail_pic_name overflow_hidden bgcolor-720606"  ng-click="foodDetail(foods.sm[0].id)">
+                            <div class="padding-left-33">{{foods.sm[0].name}}</div>
+                        <span ng-if="foods.sm[0].tbtj_flag == 1" class="food-tagname">特</span>
+                        <span ng-if="foods.sm[0].tbtj_flag == 0 && foods.sm[0].zctj_flag == 1" class="food-tagname">推</span>
+                        <span ng-if="foods.sm[0].tbtj_flag == 0 && foods.sm[0].zctj_flag == 0" class="food-tagname">{{foods.sm[0].tagname}}</span>
+                    </div>
+                </div>
+
+                <div class="detail_pic1">
+                    <div ng-show="foods.big.cd_flag == 0" class="ribbon ribbon-danger" ng-click="addMenu(foods.big)">
+                        <div class="banner">
+                            <div class="text">￥{{foods.big.price}}</div>
+                            <div class="text" >加入菜单</div>
+                        </div>
+                    </div>
+                    <div ng-show="foods.big.cd_flag == 1" class="ribbon ribbon2 ribbon-danger" ng-click="addMenued()">
+                        <div class="banner">
+                            <div class="text">￥{{foods.big.price}}</div>
+                            <div class="text" >已加入</div>
+                        </div>
+                    </div>
+                    <div class="height_100 width_100 bg_position_center bg_size_cover border-720606" style="background-image: url({{foods.big.file_path}});"  ng-click="foodDetail(foods.big.id)"></div>
+                    <div ng-show="foods.big.file_path" class="detail_pic_name overflow_hidden bgcolor-720606">
+                        <div class="padding-left-33">{{foods.big.name}}</div>
+                        <span ng-if="foods.big.tbtj_flag == 1" class="food-tagname">特</span>
+                        <span ng-if="foods.big.tbtj_flag == 0 && foods.big.zctj_flag == 1" class="food-tagname">推</span>
+                        <span ng-if="foods.big.tbtj_flag == 0 && foods.big.zctj_flag == 0" class="food-tagname">{{foods.big.tagname}}</span>
+                    </div>
+                </div>
+
+                <div class="detail_pic2" >
+                    <div ng-show="foods.sm[1].cd_flag == 0" class="ribbon ribbon-danger" ng-click="addMenu(foods.sm[1])">
+                        <div class="banner">
+                            <div class="text">￥{{foods.sm[1].price}}</div>
+                            <div class="text">加入菜单</div>
+                        </div>
+                    </div>
+                    <div ng-show="foods.sm[1].cd_flag == 1" class="ribbon ribbon2 ribbon-danger" ng-click="addMenued()">
+                        <div class="banner">
+                            <div class="text">￥{{foods.sm[1].price}}</div>
+                            <div class="text" >已加入</div>
+                        </div>
+                    </div>
+                    <div class="height_100 width_100 border-720606" style="background-image: url({{foods.sm[1].file_path}});
+                        background-size: cover;background-position: center;" ng-click="foodDetail(foods.sm[1].id)"></div>
+                    <div ng-show="foods.sm[1].file_path" class="detail_pic_name overflow_hidden bgcolor-720606">
+                        <div class="padding-left-33">{{foods.sm[1].name}}</div>
+                        <span ng-if="foods.sm[1].tbtj_flag == 1" class="food-tagname">特</span>
+                        <span ng-if="foods.sm[1].tbtj_flag == 0 && foods.sm[1].zctj_flag == 1" class="food-tagname">推</span>
+                        <span ng-if="foods.sm[1].tbtj_flag == 0 && foods.sm[1].zctj_flag == 0" class="food-tagname">{{foods.sm[1].tagname}}</span>
+                    </div>
+                </div>
+
+                <div class="detail_pic3">
+                    <div ng-show="foods.sm[2].cd_flag == 0" class="ribbon ribbon-danger" ng-click="addMenu(foods.sm[2])">
+                        <div class="banner">
+                            <div class="text">￥{{foods.sm[2].price}}</div>
+                            <div class="text">加入菜单</div>
+                        </div>
+                    </div>
+                    <div ng-show="foods.sm[2].cd_flag == 1" class="ribbon ribbon2 ribbon-danger" ng-click="addMenued()">
+                        <div class="banner">
+                            <div class="text">￥{{foods.sm[2].price}}</div>
+                            <div class="text">已加入</div>
+                        </div>
+                    </div>
+                    <div class="height_100 width_100 border-720606" style="background-image: url({{foods.sm[2].file_path}});
+                        background-size: cover;background-position: center;" ng-click="foodDetail(foods.sm[2].id)"></div>
+                    <div ng-show="foods.sm[2].file_path" class="detail_pic_name overflow_hidden bgcolor-720606">
+                        <div class="padding-left-33">{{foods.sm[2].name}}</div>
+                        <span ng-if="foods.sm[2].tbtj_flag == 1" class="food-tagname">特</span>
+                        <span ng-if="foods.sm[2].tbtj_flag == 0 && foods.sm[2].zctj_flag == 1" class="food-tagname">推</span>
+                        <span ng-if="foods.sm[2].tbtj_flag == 0 && foods.sm[2].zctj_flag == 0" class="food-tagname">{{foods.sm[2].tagname}}</span>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+
+    <img src="images/myorder.png" class="imgBtn {{btn1}}" ng-click="myMenu()"/>
+    <img src="images/rec_rest.png" class="imgBtn {{btn2}}"/>
+    <img src="images/chef_rec.png" class="imgBtn {{btn3}}" ng-click="goRecommend(restaurant_Detail)"/>
+    <img src="images/click.png" class="imgBtn" ng-click="Style()"/>
+</ion-view>
