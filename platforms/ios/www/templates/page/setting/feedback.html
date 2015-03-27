@@ -1,0 +1,21 @@
+<ion-view view-title="意见反馈">
+    <ion-content overflow-scroll="true" style="overflow:hidden; background-color: #eee;">
+        <form ng-submit="postOpinion(opinionInfo)">
+            <div class="list list-inset">
+
+                <label class="item item-input item-stacked-label">
+                    <textarea rows="4" placeholder="给我们的建议" ng-model="opinionInfo.content"></textarea>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <input type="text" placeholder="联系方式（手机/邮箱）" ng-model="opinionInfo.contact">
+                </label>
+
+            </div>
+            <div class="padding">
+                <button type="submit" class="button button-block bgcolor-ff6666 white" ng-disabled="invalid">
+                    提 交
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,34 @@
+<ion-view view-title="恋家厨房">
+    <ion-content class="padding_5p">
+
+        <ui-square class="ui-square" ng-click="restaurantLists()">
+            <img src="images/canting.png"/>
+        </ui-square>
+        <ui-square class="ui-square" ng-repeat="restaurant in restaurantList" ng-click="restaurantDetail(restaurant)">
+            <img ng-src="{{restaurant.file_path}}"/>
+            <div class="title" ng-bind="restaurant.name"></div>
+        </ui-square>
+
+        <div class="clear_both padding_5p;">
+            <img src="images/guangao.png" width="100%"/>
+        </div>
+
+        <ui-square class="ui-square" ng-click="foodList()">
+            <img src="images/food.png"/>
+        </ui-square>
+
+        <ui-square class="ui-square" ng-repeat="fs in foods" ng-click="foodList(fs)">
+            <div class="box">
+                <div class="title" ng-bind="fs.title"></div>
+                <a ng-repeat="food in fs.data">
+                    <img ng-src="{{food.file_path}}"/>
+                </a>
+                <div class="clear_both"></div>
+            </div>
+        </ui-square>
+        <div class="clear_both"></div>
+    </ion-content>
+
+    <div ng-click="getPosition()" class="reGetPosition" style="z-index:99"> <img src="images/arginloc.png" class="width-40p" /> </div>
+
+</ion-view>

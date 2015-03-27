@@ -1,0 +1,104 @@
+<ion-view id="menu-list" view-title="我的订单" class="bgcolor-eee">
+    <ion-tabs id="product-list-tabs" class="tabs-positive tabs-top tabs-background-balanced" view-title="我的菜单">
+
+        <ion-tab title="待付款({{cnt.cnt2}})">
+            <!-- Tab 2 content -->
+            <ion-content class="has-top-bar bgcolor-white" ng-style="listPanel">
+                <ion-item ng-show="menuByDfks.length == 0" type="item-text-wrap">
+                    <h2 class="text-center">暂无待付款订单信息</h2>
+                </ion-item>
+                <ion-list>
+                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="menuByDfk in menuByDfks" type="item-text-wrap">
+                        <div class="orderInfo" ng-click="menuDetialInfo(menuByDfk)">
+                            <h2>{{menuByDfk.cname}}</h2>
+                            <h2>{{menuByDfk.orderno}}</h2>
+                            <h2>{{menuByDfk.str}}</h2>
+                            <h2>{{menuByDfk.create_date}}</h2>
+                        </div>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                        <input type="button" value="付 款" class="payOrder" ng-click="payOrder(menuByDfk);" />
+                        <ion-option-button class="button-assertive" ng-click="cancleOrder(menuByDfk)">
+                            取 消
+                        </ion-option-button>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="已付款({{cnt.cnt3}})">
+            <!-- Tab 3 content -->
+            <ion-content class="has-top-bar bgcolor-white" ng-style="listPanel">
+                <ion-item ng-show="menuByYfks == ''" type="item-text-wrap">
+                    <h2 class="text-center">暂无已付款订单信息</h2>
+                </ion-item>
+                <ion-list>
+                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="menuByYfk in menuByYfks" type="item-text-wrap">
+                        <div class="orderInfo" ng-click="menuDetialInfo(menuByYfk)">
+                            <h2>{{menuByYfk.cname}}</h2>
+                            <h2>{{menuByYfk.orderno}}</h2>
+                            <h2>{{menuByYfk.str}}</h2>
+                            <h2>{{menuByYfk.create_date}}</h2>
+                        </div>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                        <span class="payOrder">{{menuByYfk.status}}</span>
+                        <!--<input type="button" value="{{menuByYfk.status}}" class="payOrder" />-->
+                        <!--<input type="button" value="评价" class="payOrder" ng-click="pjOrder(menuByYfk);" />-->
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="已评价({{cnt.cnt4}})">
+            <!-- Tab 4 content -->
+            <ion-content class="has-top-bar bgcolor-white" ng-style="listPanel" >
+                <ion-item ng-show="menuByYpjs.length == 0" type="item-text-wrap">
+                    <h2 class="text-center">暂无评价信息</h2>
+                </ion-item>
+                <ion-list>
+                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="menuByYpj in menuByYpjs" type="item-text-wrap" >
+                        <div class="orderInfo" ng-click="menuDetialInfo(menuByYpj)">
+                            <h2>{{menuByYpj.cname}}</h2>
+                            <h2>{{menuByYpj.orderno}}</h2>
+                            <h2>{{menuByYpj.str}}</h2>
+                            <h2>{{menuByYpj.create_date}}</h2>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>
+
+<script id="menuByDfkInfo.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-stable">
+            <div><button ng-click="menuByDfkInfo_back();" class="button back-button buttons  button-clear button-dark header-item">
+                <i class="icon ion-ios-arrow-back"></i>
+                <span class="back-text">返回</span></button></div>
+            <div class="h1 title">订单详情</div>
+        </ion-header-bar>
+        <ion-content id="menuByDfkInfo-list">
+            <div class="detail_order">
+                <div>酒店名称：{{orderInfo.restName}}</div>
+                <div>交易状态：{{orderInfo.status}}</div>
+                <div>订单编号：{{orderInfo.orderno}}</div>
+                <div>订单金额：￥{{orderInfo.amount}}</div>
+                <div>收货信息：{{orderInfo.to_name}},{{orderInfo.to_phone}}<span class="orderInfo-detail-address">{{orderInfo.to_addr}}</span></div>
+                <div>发票信息：{{orderInfo.invoice_title}}</div>
+                <div ng-if="!orderInfo.pay_date">付款时间：尚未付款</div>
+                <div ng-if="orderInfo.pay_date">付款时间：{{orderInfo.pay_date}}</div>
+                <div>预约时间：{{orderInfo.book_time}}</div>
+                <div>留言信息：{{orderInfo.message}}</div>
+            </div>
+            <ion-list>
+                <ion-item class="item-remove-animate item-icon-right" ng-repeat="dfkInfo in dfkInfos" type="item-text-wrap">
+                    <img class="myMenu_img" ng-src="{{dfkInfo.file_path}}">
+                    <h2 class="margin-left-140px">{{dfkInfo.fname}}</h2>
+                    <h2 class="margin-left-140px color-ff6666">￥{{dfkInfo.price}}</h2>
+                    <h2 class="margin-left-140px">{{dfkInfo.cnt}}份</h2>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>
